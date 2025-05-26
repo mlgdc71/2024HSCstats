@@ -1,0 +1,418 @@
+/* Basic Styling */
+html, body {
+    height: 100%; /* Make html and body take full viewport height */
+    margin: 0;
+    padding: 0; /* Remove body padding to allow full screen use */
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    overflow: hidden; /* Hide overall scrollbars, let flex children manage */
+}
+
+.container {
+    max-width: none; /* Remove max-width to allow full screen width */
+    width: 100%; /* Take full width */
+    height: 100vh; /* Take full viewport height */
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px; /* Adjusted padding for the main container */
+    border-radius: 0; /* Remove border-radius for full screen */
+    box-shadow: none; /* Remove box-shadow for full screen */
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px; /* Reduced margin */
+    flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+header h1 {
+    color: #2c3e50;
+    margin-bottom: 5px; /* Reduced margin */
+}
+
+/* --- SUBJECT SELECTOR STYLES --- */
+.subject-selector-section {
+    margin-top: 0; /* Removed top margin */
+    margin-bottom: 20px; /* Reduced margin */
+    padding: 15px 10px; /* Adjusted padding */
+    background-color: #ecf0f1;
+    border-radius: 6px;
+    border: 1px solid #dcdfe4;
+    text-align: center;
+    flex-shrink: 0; /* Prevent this section from shrinking */
+}
+
+.subject-selector-section h2 {
+    font-size: 1.1em; /* Slightly smaller heading */
+    margin-top: 0;
+    margin-bottom: 15px; /* Reduced margin */
+}
+
+.subject-buttons-container {
+    display: flex;
+    flex-wrap: nowrap; /* IMPORTANT: Prevent wrapping, force horizontal scroll */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    gap: 8px; /* Space between buttons */
+    justify-content: flex-start; /* Align buttons to the start */
+    padding: 5px 0;
+    padding-bottom: 10px; /* Add padding for scrollbar */
+    /* Style the scrollbar for better appearance */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #bdc3c7 #f0f0f0; /* Firefox */
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+.subject-buttons-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.subject-buttons-container::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.subject-buttons-container::-webkit-scrollbar-thumb {
+    background-color: #bdc3c7;
+    border-radius: 10px;
+    border: 2px solid #f0f0f0;
+}
+
+
+.subject-button {
+    padding: 8px 12px; /* Slightly smaller padding */
+    font-size: 14px; /* Slightly smaller font */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    color: #555;
+    cursor: pointer; /* Changed from grab */
+    opacity: 0.6; /* Initially faded */
+    transition: opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease; /* Removed transform transition */
+    user-select: none; /* Prevent text selection */
+    white-space: nowrap; /* Prevent text wrapping inside buttons */
+    flex-shrink: 0; /* Prevent buttons from shrinking when scrolling */
+}
+
+.subject-button:hover {
+    opacity: 1; /* More prominent on hover */
+    background-color: #e0e0e0;
+    border-color: #999;
+}
+
+.subject-button.active {
+    opacity: 1;
+    background-color: #3498db; /* Active button color */
+    color: white;
+    border-color: #2980b9;
+    font-weight: bold;
+    cursor: default; /* No pointer cursor when active */
+}
+
+/* Removed drag-and-drop related styles */
+/* .subject-button.dragging, .subject-button.insert-before, .subject-button.insert-after */
+
+
+/* --- GRAPHING STYLES --- */
+.graph-section {
+    margin-top: 0; /* Removed top margin */
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex-grow: 1; /* Allow graph section to take remaining vertical space */
+    display: flex;
+    flex-direction: column; /* Stack title, container, source vertically */
+    box-sizing: border-box;
+    overflow: hidden; /* Hide overflow of this section, let graph-container handle scroll */
+}
+
+.graph-main-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 25px;
+    flex-shrink: 0; /* Prevent title from shrinking */
+}
+
+.graph-container {
+    display: flex; /* Use flexbox to align Y-axis labels and plot area */
+    position: relative;
+    padding-bottom: 30px; /* Space for X-axis labels */
+    min-height: 200px; /* Ensure some minimum height */
+    border-bottom: 1px solid #e0e0e0; /* X-axis line */
+    flex-grow: 1; /* Allow graph container to take remaining vertical space */
+    overflow-y: auto; /* IMPORTANT: Enable vertical scrolling for graph content */
+    /* Style the scrollbar for better appearance */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #bdc3c7 #f0f0f0; /* Firefox */
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+.graph-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.graph-container::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.graph-container::-webkit-scrollbar-thumb {
+    background-color: #bdc3c7;
+    border-radius: 10px;
+    border: 2px solid #f0f0f0;
+}
+
+
+.y-axis-labels {
+    flex-shrink: 0; /* Don't allow it to shrink */
+    width: 200px; /* Adjust as needed for school names */
+    position: relative;
+    padding-right: 10px; /* Space between names and lines */
+    box-sizing: border-box;
+    overflow: hidden; /* Hide overflowing text */
+    /* height: 100%; */ /* Removed, min-height handled by JS */
+}
+
+.school-name-label {
+    display: block; /* Each label on its own line */
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: right; /* Align school names to the right (towards the graph) */
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap; /* Prevent names from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+    transition: top 0.5s ease-in-out; /* Smooth movement for school names */
+}
+
+.plot-area {
+    flex-grow: 1; /* Takes up remaining space */
+    position: relative;
+    /* height: 100%; */ /* Removed, min-height handled by JS */
+}
+
+.data-point {
+    position: absolute;
+    height: 2px; /* For vertical positioning, but content uses relative positioning */
+    width: 100%; /* Spans the plot area */
+    left: 0;
+    transform: translateY(-50%); /* Vertically center the point on its 'top' position */
+    transition: top 0.5s ease-in-out; /* Smooth vertical movement for data points */
+}
+
+.line {
+    position: absolute;
+    height: 1px;
+    background-color: #bdc3c7; /* Grey line color */
+    left: 0;
+    top: 50%; /* Vertically center within data-point */
+    transform: translateY(-50%);
+    transition: width 0.5s ease-in-out; /* Smooth horizontal movement for lines */
+}
+
+.dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #2c3e50; /* Dark blue/black dot */
+    top: 50%; /* Vertically center within data-point */
+    transform: translateY(-50%);
+    z-index: 1; /* Ensure dot is on top of the line */
+    transition: left 0.5s ease-in-out; /* Smooth horizontal movement for dots */
+}
+
+.score-text {
+    position: absolute;
+    font-size: 13px;
+    color: #2c3e50;
+    top: 50%; /* Vertically center within data-point */
+    transform: translateY(-50%);
+    margin-left: 10px; /* Space between dot and text */
+    font-weight: bold;
+    transition: left 0.5s ease-in-out; /* Smooth horizontal movement for scores */
+}
+
+.x-axis {
+    position: absolute;
+    bottom: 0;
+    left: 200px; /* Aligns with the start of the plot area */
+    right: 0;
+    height: 20px;
+    border-top: 1px solid #e0e0e0; /* Visual line for x-axis */
+    color: #777;
+    font-size: 13px;
+    flex-shrink: 0; /* Prevent x-axis from shrinking */
+}
+
+.x-axis-label {
+    position: absolute;
+    bottom: -20px; /* Position below the line */
+    transform: translateX(-50%); /* Center the label on its 'left' percentage */
+}
+
+.graph-source {
+    text-align: right;
+    font-size: 12px;
+    color: #777;
+    margin-top: 15px; /* Adjusted margin */
+    flex-shrink: 0; /* Prevent source from shrinking */
+}
+
+/* --- FOOTER STYLES --- */
+footer {
+    text-align: center;
+    margin-top: 20px; /* Reduced margin */
+    padding-top: 15px; /* Reduced padding */
+    border-top: 1px solid #e0e0e0;
+    color: #777;
+    font-size: 14px;
+    flex-shrink: 0; /* Prevent footer from shrinking */
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: #3498db;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px; /* Reduce overall padding on small screens */
+    }
+
+    header {
+        margin-bottom: 10px;
+    }
+
+    .subject-selector-section {
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+
+    .subject-buttons-container {
+        gap: 5px;
+        padding-bottom: 8px; /* Ensure scrollbar is visible */
+    }
+
+    .subject-button {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    .graph-section {
+        padding: 15px;
+    }
+
+    .graph-main-title {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .graph-container {
+        flex-direction: column; /* Stack Y-axis labels and plot area */
+        height: auto;
+        padding-bottom: 40px; /* More space for X-axis if it's below */
+        min-height: 150px; /* Smaller min-height for mobile */
+    }
+
+    .y-axis-labels {
+        width: 100%;
+        text-align: center; /* Center names on small screens */
+        position: static; /* Remove absolute positioning */
+        margin-bottom: 10px; /* Reduced margin */
+        padding-right: 0;
+        height: auto !important; /* Override JS height for stacked layout */
+    }
+
+    .school-name-label {
+        position: static; /* Remove absolute positioning */
+        text-align: center;
+        margin-bottom: 3px; /* Spacing between school names */
+        font-size: 13px;
+    }
+
+    .plot-area {
+        width: 100%;
+        height: auto !important; /* Override JS height for stacked layout */
+        padding-top: 0;
+        min-height: 150px; /* Ensure plot area has some height */
+    }
+
+    .data-point {
+        position: relative; /* Make it flow naturally */
+        top: auto;
+        transform: none;
+        height: auto;
+        margin-bottom: 10px; /* Spacing between data points */
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap; /* Allow wrapping */
+    }
+    
+    .line {
+        display: none; /* Hide lines on small screens if they look bad */
+    }
+
+    .dot {
+        position: static; /* Remove absolute positioning */
+        transform: none;
+        margin-right: 5px;
+        flex-shrink: 0;
+    }
+
+    .score-text {
+        position: static; /* Remove absolute positioning */
+        transform: none;
+        margin-left: 0;
+        flex-shrink: 0;
+        font-size: 12px;
+    }
+
+    .x-axis {
+        position: relative; /* Flow naturally after plot area */
+        left: 0;
+        right: 0;
+        border-top: none;
+        padding-top: 15px;
+        text-align: center;
+        height: auto; /* Allow content to dictate height */
+    }
+
+    .x-axis-label {
+        position: static;
+        transform: none;
+        display: inline-block;
+        margin: 0 5px;
+        font-size: 12px;
+    }
+
+    .graph-source {
+        margin-top: 10px;
+    }
+
+    footer {
+        margin-top: 15px;
+        padding-top: 10px;
+    }
+}

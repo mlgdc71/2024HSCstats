@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive School Subject Rankings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>School Subject Performance</h1>
+            <p>Explore average scores for various subjects across different schools.</p>
+        </header>
+
+        <section class="subject-selector-section">
+            <h2>Select a Subject:</h2>
+            <div class="subject-buttons-container" id="subjectButtonsContainer">
+                </div>
+        </section>
+
+        <section class="graph-section">
+            <h2 class="graph-main-title" id="graphMainTitle"></h2>
+            <div class="graph-container">
+                <div class="y-axis-labels" id="yAxisLabels">
+                    </div>
+                <div class="plot-area" id="plotArea">
+                    </div>
+                <div class="x-axis" id="xAxis">
+                    </div>
+            </div>
+            <p class="graph-source">Source: NSW Education department (2024 Data)</p>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Your Company Name. All rights reserved.</p>
+            <p>
+                <a href="#">Privacy Policy</a> |
+                <a href="#">Terms of Service</a> |
+                <a href="#">Contact</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        let allSchoolData = []; // To store the loaded JSON data
+        let availableSubjects = []; // To store extracted subject names
+        let currentSubject = ''; // To keep track of the currently selected subject
+
+        const subjectButtonsContainer = document.getElementById('subjectButtonsContainer');
+        const yAxisLabelsContainer = document.getElementById('yAxisLabels');
+        const plotAreaContainer = document.getElementById('plotArea');
+        const xAxisContainer = document.getElementById('xAxis');
+        const graphMainTitle = document.getElementById('graphMainTitle');
+
+        // --- Data Loading and Initialization ---
+        async function loadDataAndInitialize() {
+            try {
+                console.log('Attempting to fetch 2024data.json...');
+                const response = await fetch('2024data.json');
+                
+                if (!response.ok) {
+                    console.error(`HTTP error! Status: ${response.status}, Text: ${response.statusText}`);
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                console.log('Fetch successful, attempting to parse JSON...');
+                allSchoolData = await response.json();
+                console.log('JSON parsed successfully:', allSchoolData.length, 'records found.');
+
+                // Extract subjects from the first data entry (assuming consistent structure)
+                // Filter out 'ID' and 'Name' as they are not subjects
+                if (allSchoolData.length > 0) {
+                    availableSubjects = Object.keys(allSchoolData[0]).filter(key => key !== 'ID' && key !== 'Name');
+                    console.log('Available subjects:', availableSubjects);
+                } else {
+                    console.warn('No data records found in 2024data.json.');
+                }
+
+                renderSubjectButtons(); // Create the interactive subject buttons
+
+                if (availableSubjects.length > 0) {
+                    // Set an initial subject to display, e.g., 'English Advanced' or the first available
+                    currentSubject = 'English Advanced'; // Default subject
+                    if (!availableSubjects.includes(currentSubject)) {
+                        currentSubject = availableSubjects[0]; // Fallback to first if default not found
+                    }
+                    console.log('Initial subject set to:', currentSubject);
+                    renderGraph(currentSubject); // Render the initial graph
+                } else {
+                    graphMainTitle.textContent = 'No subjects found in data.';
+                    console.warn('No subjects to display.');
+                }
+
+            } catch (error) {
+                console.error('Error loading or processing data:', error);
+                graphMainTitle.textContent = 'Error loading data. Please check console for details.';
+            }
+        }
+
+        // --- Subject Button Rendering ---
+        function renderSubjectButtons() {
+            subjectButtonsContainer.innerHTML = ''; // Clear existing buttons
+
+            availableSubjects.forEach(subject => {
+                const button = document.createElement('button');
+                button.textContent = subject;
+                button.className = 'subject-button'; // Apply base style for fade
+                button.dataset.subject = subject; // Store subject name in data attribute
+
+                // Add active class if this is the currently selected subject
+                if (subject === currentSubject) {
+                    button.classList.add('active');
+                }
+
+                button.addEventListener('click', () => {
+                    // Only re-render if a different subject is clicked
+                    if (currentSubject !== subject) {
+                        currentSubject = subject;
+                        // Update active class for buttons
+                        document.querySelectorAll('.subject-button').forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                        renderGraph(currentSubject);
+                    }
+                });
+
+                subjectButtonsContainer.appendChild(button);
+            });
+        }
+
+        // --- Graph Rendering Logic ---
+        function renderGraph(subject) {
+            graphMainTitle.textContent = `${subject} Average Scores by School`; // Update title
+
+            // Filter data: only include schools with a valid score for the selected subject
+            const dataForSubject = allSchoolData.filter(school => {
+                const scoreValue = school[subject];
+                // Check if the score is a non-empty string and can be parsed to a number
+                return scoreValue !== "" && !isNaN(parseFloat(scoreValue)) && school.Name;
+            }).map(school => ({
+                name: school.Name,
+                score: parseFloat(school[subject])
+            })).sort((a, b) => b.score - a.score); // Sort by score descending
+
+            // Determine min and max scores for dynamic X-axis scaling
+            let minScore = 0;
+            let maxScore = 100; // Default range
+            if (dataForSubject.length > 0) {
+                const scores = dataForSubject.map(d => d.score);
+                // Find the minimum score, but ensure it's not too close to the actual min to give some padding
+                minScore = Math.floor(Math.min(...scores) / 5) * 5; // Round down to nearest 5
+                maxScore = Math.ceil(Math.max(...scores) / 5) * 5;   // Round up to nearest 5
+                // Ensure a minimum range if all scores are very close
+                if (maxScore - minScore < 10 && maxScore <= 100) { // Add condition to prevent exceeding 100
+                    minScore = Math.max(0, maxScore - 10); // Ensure at least a 10-point range
+                }
+                // If maxScore is 100 or very close, ensure minScore doesn't go below 0
+                if (minScore < 0) minScore = 0;
+            }
+            const scoreRange = maxScore - minScore;
+
+            // Update X-axis labels dynamically
+            xAxisContainer.innerHTML = '';
+            const numLabels = 3; // Start, middle, end
+            for (let i = 0; i < numLabels; i++) {
+                const labelSpan = document.createElement('span');
+                const percentage = i / (numLabels - 1);
+                const value = minScore + (scoreRange * percentage);
+                labelSpan.textContent = value.toFixed(1); // One decimal place
+                labelSpan.className = 'x-axis-label';
+                labelSpan.style.left = `${percentage * 100}%`;
+                xAxisContainer.appendChild(labelSpan);
+            }
+
+            // Clear previous graph elements
+            yAxisLabelsContainer.innerHTML = '';
+            plotAreaContainer.innerHTML = '';
+
+            // Calculate vertical positioning
+            const rowHeight = 35; // px per row, adjust as needed for spacing
+            // Set a dynamic height for the plot area based on the number of schools
+            // This allows the graph-container to scroll if content overflows
+            plotAreaContainer.style.minHeight = `${dataForSubject.length * rowHeight}px`;
+            yAxisLabelsContainer.style.minHeight = `${dataForSubject.length * rowHeight}px`;
+
+
+            dataForSubject.forEach((item, index) => {
+                const topPosition = index * rowHeight + (rowHeight / 2); // Center of the row
+
+                // Add school name to Y-axis
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = item.name;
+                nameSpan.className = 'school-name-label';
+                nameSpan.style.top = `${topPosition - 10}px`; // Adjust to vertically center text
+                // Add transition for smooth movement
+                nameSpan.style.transition = 'top 0.5s ease-in-out';
+                yAxisLabelsContainer.appendChild(nameSpan);
+
+                // Calculate horizontal position
+                const normalizedScore = (item.score - minScore) / scoreRange; // 0 to 1
+                const clampedNormalizedScore = Math.max(0, Math.min(1, normalizedScore)); // Clamp between 0 and 1
+                
+                // Get the actual width of the plot area for accurate positioning
+                // This needs to be done after the plotAreaContainer is rendered and has its width
+                const plotWidth = plotAreaContainer.offsetWidth; 
+                const dotLeft = clampedNormalizedScore * plotWidth;
+
+                // Create data point container
+                const dataPoint = document.createElement('div');
+                dataPoint.className = 'data-point';
+                dataPoint.style.top = `${topPosition}px`; // Vertically center the whole point
+                dataPoint.style.transition = 'top 0.5s ease-in-out'; // Smooth vertical movement
+
+                // Create line
+                const line = document.createElement('div');
+                line.className = 'line';
+                line.style.width = `${dotLeft}px`; // Line extends from y-axis to dot
+                line.style.transition = 'width 0.5s ease-in-out'; // Smooth horizontal movement
+                
+                // Create dot
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                dot.style.left = `${dotLeft - 4}px`; // Adjust for dot's width (8px) to center on position (4px offset)
+                dot.style.transition = 'left 0.5s ease-in-out'; // Smooth horizontal movement
+
+                // Create score text
+                const scoreText = document.createElement('span');
+                scoreText.className = 'score-text';
+                scoreText.textContent = item.score.toFixed(1); // Ensures one decimal place
+                scoreText.style.left = `${dotLeft + 8}px`; // Position text next to the dot
+                scoreText.style.transition = 'left 0.5s ease-in-out'; // Smooth horizontal movement
+
+                dataPoint.appendChild(line);
+                dataPoint.appendChild(dot);
+                dataPoint.appendChild(scoreText);
+                plotAreaContainer.appendChild(dataPoint);
+            });
+        }
+
+        // --- Event Listeners and Initial Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDataAndInitialize();
+
+            // Re-render graph on window resize to adjust positions
+            window.addEventListener('resize', () => {
+                if (currentSubject) {
+                    renderGraph(currentSubject);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
