@@ -38,6 +38,10 @@ header p {
     color: #555;
 }
 
+/* Optional: Add a subtle style for the crown emoji if needed */
+.crown-emoji {
+    margin-right: 5px; /* Space between emoji and school name */
+}
 
 /* --- GRAPHING SECTION (Designed to expand with content and allow page scroll) --- */
 .graph-section {
