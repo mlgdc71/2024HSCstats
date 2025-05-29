@@ -22,8 +22,12 @@ html, body {
 }
 
 header {
-    text-align: center;
-    margin-bottom: 20px;
+    /* Adjusted for centering */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    text-align: center; /* Fallback for older browsers or non-flex content */
+    margin-bottom: 15px; /* Reduced gap below header */
     flex-shrink: 0; /* Prevent header from shrinking */
 }
 
@@ -38,10 +42,16 @@ header p {
     color: #555;
 }
 
-/* Optional: Add a subtle style for the crown emoji if needed */
-.crown-emoji {
-    margin-right: 5px; /* Space between emoji and school name */
+/* New: Container for "Follow us on Instagram!" and the icon */
+.follow-instagram {
+    display: flex;
+    align-items: center; /* Vertically align text and icon */
+    gap: 10px; /* Space between text and icon */
+    margin: 0 auto 10px auto; /* Added margin: 0 auto for horizontal centering and kept bottom margin */
+    font-size: 1.1em; /* Make text size consistent */
+    color: #555;
 }
+
 
 /* --- GRAPHING SECTION (Designed to expand with content and allow page scroll) --- */
 .graph-section {
@@ -251,7 +261,7 @@ header p {
 /* --- FOOTER STYLES --- */
 footer {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 15px; /* Reduced gap above footer */
     padding-top: 15px;
     border-top: 1px solid #e0e0e0;
     color: #777;
@@ -273,6 +283,68 @@ footer a:hover {
     text-decoration: underline;
 }
 
+/* Social Links Container - For other social links, not the "Follow us on Instagram!" one if separate */
+.social-links-container {
+    margin-top: 10px; /* Adjusted margin to prevent clash with follow-instagram div */
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Space between social buttons */
+    flex-wrap: nowrap; /* Prevents links from wrapping to a new line */
+}
+
+/* Base style for all social buttons - now with absolute size */
+.social-button {
+    display: flex; /* Use flexbox to center content inside the button */
+    align-items: center; /* Vertically center content */
+    justify-content: center; /* Horizontally center content */
+    
+    width: 60px;   /* Absolute Width */
+    height: 60px;  /* Absolute Height */
+    padding: 0;    /* Remove padding as size is absolute */
+
+    background-color: #3498db; /* Blue background */
+    color: white;
+    text-decoration: none;
+    border-radius: 50%; /* Make them circular */
+    font-weight: bold;
+    font-size: 0.9em; /* Adjust font size to fit */
+    text-align: center; /* Ensure text is centered within the fixed area */
+    
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    flex-shrink: 0; /* Ensures buttons don't shrink if space is tight */
+}
+
+/* Specific style for Instagram button (smaller size) */
+.social-button.instagram-button {
+    width: 50px;   /* Adjusted: Smaller absolute size for Instagram button container */
+    height: 50px;  /* Adjusted: Smaller absolute size for Instagram button container */
+    border-radius: 50%; /* Keep circular */
+    background-color: #E1306C; /* Instagram's brand color */
+    font-size: 1em; /* Adjust font size if it contained text */
+}
+
+
+.social-button:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
+}
+
+/* Specific hover for Instagram if it has a different base color */
+.social-button.instagram-button:hover {
+    background-color: #c13584; /* Darker Instagram color on hover */
+}
+
+
+/* Styling for social icons (specifically for the img tag) */
+.social-icon {
+    width: 30px;  /* Adjusted: Desired width for the image */
+    height: 30px; /* Adjusted: Desired height for the image */
+    display: block; /* Ensures it takes up its own block space */
+    object-fit: contain; /* Ensures the image fits within the bounds without cropping */
+}
+
 
 /* Adjustments for smaller screens */
 @media (max-width: 768px) {
@@ -285,12 +357,10 @@ footer a:hover {
 
     .main-content-wrapper {
         padding: 10px;
-        min-height: 100vh;
     }
 
     .graph-section {
         padding: 15px;
-        min-height: calc(100vh - 20px - 10px); /* Adjusted for mobile wrapper padding and header/footer */
     }
 
     .graph-main-title {
@@ -300,17 +370,32 @@ footer a:hover {
 
     .subject-buttons-container {
         gap: 5px;
-        padding-bottom: 8px;
+        padding: 5px 0 8px 0;
         margin-bottom: 15px;
-        position: sticky; /* Keep sticky on mobile */
+        position: sticky;
         top: 0;
-        background-color: #ffffff; /* Ensure background */
+        background-color: #ffffff;
         box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        justify-content: flex-start;
     }
 
     .subject-button {
-        padding: 6px 10px;
-        font-size: 13px;
+        /* Smaller absolute size for mobile text buttons */
+        width: 50px;
+        height: 50px;
+        font-size: 0.8em;
+    }
+
+    /* Adjustments for icon button on mobile */
+    .social-button.instagram-button {
+        width: 40px;   /* Adjusted: Smaller size for mobile Instagram button */
+        height: 40px;  /* Adjusted: Smaller size for mobile Instagram button */
+        padding: 0; /* No padding needed */
+    }
+
+    .social-button.instagram-button .social-icon {
+        width: 25px;  /* Adjusted: Icon size within the smaller mobile button */
+        height: 25px; /* Adjusted: Icon size within the smaller mobile button */
     }
 
     .graph-container {
@@ -322,18 +407,30 @@ footer a:hover {
 
     .y-axis-labels {
         width: 100%;
-        text-align: center;
+        text-align: left;
         position: static;
         margin-bottom: 10px;
         padding-right: 0;
         height: auto !important;
+        order: 1;
     }
 
     .school-name-label {
         position: static;
-        text-align: center;
-        margin-bottom: 3px;
+        text-align: left;
+        margin-bottom: 8px;
         font-size: 13px;
+        width: 100%;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        display: block;
+        transform: none;
+        height: auto;
+        line-height: 1.2;
+    }
+    .crown-emoji {
+        margin-right: 8px;
     }
 
     .plot-area {
@@ -341,63 +438,79 @@ footer a:hover {
         height: auto !important;
         padding-top: 0;
         min-height: 150px;
+        border-bottom: 1px solid #e0e0e0;
+        order: 2;
     }
 
     .data-point {
         position: relative;
         top: auto;
         transform: none;
-        height: auto;
-        margin-bottom: 10px;
+        height: 20px;
+        margin-bottom: 0;
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        padding-left: 5px;
+        box-sizing: border-box;
     }
     
     .line {
         display: none;
     }
-
     .dot {
-        position: static;
-        transform: none;
         margin-right: 5px;
-        flex-shrink: 0;
     }
-
     .score-text {
-        position: static;
-        transform: none;
         margin-left: 0;
-        flex-shrink: 0;
-        font-size: 12px;
     }
 
     .x-axis {
         position: relative;
+        bottom: auto;
         left: 0;
         right: 0;
         border-top: none;
         padding-top: 15px;
         text-align: center;
         height: auto;
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        order: 3;
+        margin-top: 10px;
     }
 
     .x-axis-label {
         position: static;
         transform: none;
-        display: inline-block;
-        margin: 0 5px;
+        display: block;
+        margin: 0 5px 5px 5px;
         font-size: 12px;
+        flex: 1 1 auto;
+        text-align: center;
     }
 
     .graph-source {
         margin-top: 10px;
+        text-align: center;
+        font-size: 11px;
     }
 
     footer {
         margin-top: 15px;
         padding-top: 10px;
+        font-size: 13px;
+    }
+
+    /* Social Links Container Mobile Adjustments */
+    .social-links-container {
+        flex-direction: row;
+        gap: 10px;
+        overflow-x: auto;
+        padding-bottom: 5px;
+        -webkit-overflow-scrolling: touch;
     }
 }
