@@ -14,7 +14,7 @@ html, body {
 /* This wrapper will contain the header, graph, and footer */
 .main-content-wrapper {
     width: 100%;
-    padding: 20px; /* Overall padding for the main content area */
+    padding: 30px; /* Overall padding for the main content area (establishes top 20px gap) */
     box-sizing: border-box;
     display: flex; /* Use flexbox to manage internal layout */
     flex-direction: column; /* Stack header, graph, footer vertically */
@@ -34,7 +34,7 @@ header {
 header h1 {
     font-size: 2.5em; /* Adjusted size for main title */
     color: #2c3e50;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
 }
 
 header p {
@@ -45,17 +45,31 @@ header p {
 /* New: Container for "Follow us on Instagram!" and the icon */
 .follow-instagram {
     display: flex;
-    align-items: center; /* Vertically align text and icon */
-    gap: 10px; /* Space between text and icon */
-    margin: 0 auto 10px auto; /* Added margin: 0 auto for horizontal centering and kept bottom margin */
-    font-size: 1.1em; /* Make text size consistent */
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto; /* Horizontally center this div itself */
+    margin-top: 15px; /* Space above this section (from the text paragraphs) */
+    margin-bottom: 10px; /* Space below this section (to other social links) */
+    font-size: 1.1em;
     color: #555;
+}
+
+/* Social Links Container (for Twitter, LinkedIn) */
+.social-links-container {
+    margin-top: 0; /* Removed top margin, as .follow-instagram's margin-bottom creates the necessary space */
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: nowrap;
+    /* This margin creates the symmetrical gap below the header content */
+    margin-bottom: 20px; 
 }
 
 
 /* --- GRAPHING SECTION (Designed to expand with content and allow page scroll) --- */
 .graph-section {
-    margin-top: 0;
+    /* This margin now defines the gap between the header (via social-links-container's margin-bottom) and the graph section */
+    margin-top: 0; /* Ensures it starts immediately after the header's effective bottom boundary */
     padding: 30px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -285,6 +299,7 @@ footer a:hover {
 
 /* Social Links Container - For other social links, not the "Follow us on Instagram!" one if separate */
 .social-links-container {
+    /* Adjusted in header section for symmetry */
     margin-top: 10px; /* Adjusted margin to prevent clash with follow-instagram div */
     display: flex;
     justify-content: center;
@@ -361,6 +376,7 @@ footer a:hover {
 
     .graph-section {
         padding: 15px;
+        margin-top: 0; /* No margin-top here as social-links-container will have margin-bottom */
     }
 
     .graph-main-title {
