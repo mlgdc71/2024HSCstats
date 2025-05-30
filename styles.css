@@ -27,7 +27,6 @@ header {
     flex-direction: column;
     align-items: center; /* Center horizontally */
     text-align: center; /* Fallback for older browsers or non-flex content */
-    margin-bottom: 15px; /* Reduced gap below header */
     flex-shrink: 0; /* Prevent header from shrinking */
 }
 
@@ -48,8 +47,7 @@ header p {
     align-items: center;
     gap: 10px;
     margin: 0 auto; /* Horizontally center this div itself */
-    margin-top: 15px; /* Space above this section (from the text paragraphs) */
-    margin-bottom: 10px; /* Space below this section (to other social links) */
+    margin-bottom: 10px;
     font-size: 1.1em;
     color: #555;
 }
@@ -332,8 +330,8 @@ footer a:hover {
 
 /* Specific style for Instagram button (smaller size) */
 .social-button.instagram-button {
-    width: 50px;   /* Adjusted: Smaller absolute size for Instagram button container */
-    height: 50px;  /* Adjusted: Smaller absolute size for Instagram button container */
+    width: 40px;   /* Adjusted: Smaller absolute size for Instagram button container */
+    height: 40px;  /* Adjusted: Smaller absolute size for Instagram button container */
     border-radius: 50%; /* Keep circular */
     background-color: #E1306C; /* Instagram's brand color */
     font-size: 1em; /* Adjust font size if it contained text */
@@ -446,7 +444,7 @@ footer a:hover {
         line-height: 1.2;
     }
     .crown-emoji {
-        margin-right: 8px;
+        margin-right: 10px;
     }
 
     .plot-area {
