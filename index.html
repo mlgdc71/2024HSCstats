@@ -1,44 +1,59 @@
 <!DOCTYPE html>
 <html lang="en-au">
-
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-
-<script>
-  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/speed-insights/script.js"></script>
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>342 NSW High Schools 2024 HSC Subject Mean Rankings</title>
     <meta name="google-site-verification" content="N22E51ccY-4Y7QzaUWTmWFhBBes2_pE4Ke5_vIuM7Q0" />
-    <meta name="description" content="Explore and compare 2024 HSC subject performance rankings for 342 NSW Government High Schools. Find detailed data on academic results by subject for students in New South Wales 2024.">
-    <meta name="keywords" content="NSW High Schools, 2024 Top Schools, Top High Schools, Selective, Comprehensive, HSC Subject Performance, 2024 HSC, HSC2024, School Rankings, New South Wales, Government Schools, Academic Results, Subject Data, English Advanced, Mathematics Advanced, Chemistry, Physics, Biology, Science, History, Geography, Visual Arts, Music, Drama, Languages, PDHPE, Economics, Business Studies, Extension">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="shortcut icon" type="image/x-icon" href="342.png" />
+    <meta name="description" content="Explore and compare 2024 HSC subject performance rankings for 342 NSW Government High Schools. Find detailed data on academic results by subject for students in New South Wales 2024." />
+    <meta name="keywords" content="NSW High Schools, 2024 Top Schools, Top High Schools, Selective, Comprehensive, HSC Subject Performance, 2024 HSC, HSC2024, School Rankings, New South Wales, Government Schools, Academic Results, Subject Data, English Advanced, Mathematics Advanced, Chemistry, Physics, Biology, Science, History, Geography, Visual Arts, Music, Drama, Languages, PDHPE, Economics, Business Studies, Extension" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="/src/342.png" />
+
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
+    <script>
+        window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
 </head>
 
 <body>
+    <!-- Orientation/Wide-screen prompt overlay -->
+    <div id="orientationOverlay" class="orientation-overlay" aria-hidden="true">
+        <div class="orientation-dialog" role="dialog" aria-modal="true" aria-labelledby="orientationTitle">
+            <button class="overlay-close" aria-label="Close">&times;</button>
+            <div class="orientation-content">
+                <div class="orientation-emoji">🔄</div>
+                <h2 id="orientationTitle">For a better view</h2>
+                <p>Rotate your device to landscape or widen your browser window.</p>
+                <button class="overlay-btn" id="overlayContinueBtn">Continue anyway</button>
+            </div>
+        </div>
+    </div>
+
     <div class="main-content-wrapper">
         <header>
             <h1>342 NSW High Schools 2024 HSC Subject Mean Rankings</h1>
             <p>Explore how your school ranks compared to all* other high schools in NSW <b>(If on mobile please rotate phone!)</b></p>
-            <p style="font-size: 0.9em;"><i>*Government Schools ONLY, schools with only one or no released HSC subject data not included, no data available for cohort sizes of less than 10, mean average scores BELOW 50 removed from graphs, ranks with astericks* indicate tied rankings, acronyms: NBSC - Northern Beaches Secondary College; HSPA - High School of Performing Arts (or similar); HSVA&D - High School of Visual Arts and Design; SSC - Sydney Secondary College, PDHPE and IPT doesnt work yet :(</i></p>
+            <p style="font-size: 0.9em;">
+                <i>*Government Schools ONLY, schools with only one or no released HSC subject data not included, no data available for cohort sizes of less than 10, mean average scores BELOW 50 removed from graphs, ranks with astericks* indicate tied rankings, acronyms: NBSC - Northern Beaches Secondary College; HSPA - High School of Performing Arts (or similar); HSVA&amp;D - High School of Visual Arts and Design; SSC - Sydney Secondary College, PDHPE and IPT doesnt work yet :(</i>
+            </p>
         </header>
 
         <div class="follow-instagram">
             <h3>Follow us on Instagram!</h3>
             <div class="social-links">
                 <a href="https://www.instagram.com/342hsc_stats/" target="_blank" class="social-button instagram-button">
-                    <img src="instagram.png" alt="Instagram" class="social-icon">
+                    <img src="/src/instagram.png" alt="Instagram" class="social-icon" />
                 </a>
-            <h3>We are open source!</h3>
+
+                <h3>We are open source!</h3>
                 <a href="https://github.com/mlgdc71/2024HSCstats" target="_blank" class="social-button github-button">
-                    <img src="github-mark-white.svg" alt="repo" class="social-icon">
+                    <img src="/src/github-mark-white.svg" alt="repo" class="social-icon" />
                 </a>
             </div>
         </div>
@@ -46,232 +61,282 @@
         <section class="graph-section">
             <h2 class="graph-main-title">Select a Subject to View Rankings</h2>
 
-            <div class="subject-buttons-container" id="subjectButtons">
-                </div>
+            <div class="subject-buttons-container" id="subjectButtons"></div>
 
             <div class="graph-container">
-                <div class="y-axis-labels" id="yAxisLabels">
-                    </div>
-                <div class="plot-area" id="plotArea">
-                    </div>
-                <div class="x-axis" id="xAxis">
-                    </div>
+                <div class="y-axis-labels" id="yAxisLabels"></div>
+                <div class="plot-area" id="plotArea"></div>
+                <div class="x-axis" id="xAxis"></div>
             </div>
+
             <p class="graph-source">Data Source: NSW Dept. of Education</p>
         </section>
 
         <footer>
             <p>&copy; 2025 342hsc. All rights reserved.</p>
             <p>
-                <a href="https://www.linkedin.com/in/gateleaker/">gateleaker</a> | <a href="https://buymeacoffee.com/gateleaker">Buy me a coffee!</a>
+                <a href="https://www.linkedin.com/in/gateleaker/">gateleaker</a> |
+                <a href="https://buymeacoffee.com/gateleaker">Buy me a coffee!</a>
             </p>
         </footer>
     </div>
 
     <script>
+        /* ---------------------------
+           Helper factories & caches
+           --------------------------- */
+        const createEl = (tag, className) => {
+            const el = document.createElement(tag);
+            if (className) el.className = className;
+            return el;
+        };
+
+        // Cached DOM elements used throughout
+        const subjectButtonsContainer = document.getElementById('subjectButtons');
+        const yAxisLabelsContainer = document.getElementById('yAxisLabels');
+        const plotAreaContainer = document.getElementById('plotArea');
+        const xAxisContainer = document.getElementById('xAxis');
+        const graphMainTitle = document.querySelector('.graph-main-title');
+
+        /* ---------------------------
+           App state
+           --------------------------- */
         let schoolData = [];
         let currentSubject = '';
-
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('2024data.json')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    schoolData = data;
-                    populateSubjectButtons();
-                    // Set 'English Advanced' as the default subject
-                    const defaultSubject = 'English Advanced';
-                    if (allSubjects.includes(defaultSubject)) {
-                        selectSubject(defaultSubject);
-                    } else if (allSubjects.length > 0) {
-                        // Fallback to the first available subject if 'English Advanced' is not found
-                        selectSubject(allSubjects[0]);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching school data:', error);
-                    // Updated to querySelector as getElementById was incorrect for graphMainTitle
-                    document.querySelector('.graph-main-title').textContent = 'Error loading data. Please try again later.';
-                });
-        });
-
-        // Define a list of subjects to display based on common academic subjects
-        // Exclude 'ID' and 'Name' from the list of subjects
         const excludedKeys = ['ID', 'Name'];
         let allSubjects = [];
 
-        function populateSubjectButtons() {
-            const subjectButtonsContainer = document.getElementById('subjectButtons');
-            subjectButtonsContainer.innerHTML = ''; // Clear existing buttons
+        /* ---------------------------
+           Data loading (async/await)
+           --------------------------- */
+        const loadData = async () => {
+            try {
+                const res = await fetch('/src/2024data.json');
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                const data = await res.json();
+                schoolData = data;
+                populateSubjectButtons();
+                const defaultSubject = 'English Advanced';
+                if (allSubjects.includes(defaultSubject)) {
+                    selectSubject(defaultSubject);
+                } else if (allSubjects.length > 0) {
+                    selectSubject(allSubjects[0]);
+                }
+            } catch (err) {
+                console.error('Error fetching school data:', err);
+                graphMainTitle.textContent = 'Error loading data. Please try again later.';
+            }
+        };
 
-            // Dynamically get subjects from the data, excluding 'ID' and 'Name'
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+        });
+
+        /* ---------------------------
+           UI: populate subject buttons
+           --------------------------- */
+        const makeSubjectButton = (subject) => {
+            const btn = createEl('button', 'subject-button');
+            btn.textContent = subject;
+            btn.dataset.subject = subject;
+            btn.addEventListener('click', () => selectSubject(subject));
+            return btn;
+        };
+
+        const populateSubjectButtons = () => {
+            subjectButtonsContainer.innerHTML = '';
             if (schoolData.length > 0) {
-                allSubjects = Object.keys(schoolData[0]).filter(key => !excludedKeys.includes(key));
+                allSubjects = Object.keys(schoolData[0]).filter(k => !excludedKeys.includes(k));
+            } else {
+                allSubjects = [];
             }
 
             allSubjects.forEach(subject => {
-                const button = document.createElement('button');
-                button.classList.add('subject-button');
-                button.textContent = subject;
-                button.dataset.subject = subject;
-                button.addEventListener('click', () => {
-                    selectSubject(subject);
-                });
-                subjectButtonsContainer.appendChild(button);
+                const btn = makeSubjectButton(subject);
+                subjectButtonsContainer.appendChild(btn);
             });
-        }
+        };
 
-        function selectSubject(subject) {
+        /* ---------------------------
+           Subject selection
+           --------------------------- */
+        const selectSubject = (subject) => {
             currentSubject = subject;
-            // Update active button state
-            document.querySelectorAll('.subject-button').forEach(button => {
-                button.classList.remove('active');
-            });
+
+            // update active state
+            document.querySelectorAll('.subject-button').forEach(b => b.classList.remove('active'));
             const selectedButton = document.querySelector(`.subject-button[data-subject="${subject}"]`);
-            if (selectedButton) {
-                selectedButton.classList.add('active');
-            }
+            if (selectedButton) selectedButton.classList.add('active');
 
-
-            document.querySelector('.graph-main-title').textContent = `Rankings for ${subject}`;
+            graphMainTitle.textContent = `Rankings for ${subject}`;
             displayGraph(subject);
-        }
+        };
 
-        function displayGraph(subject) {
-            const yAxisLabelsContainer = document.getElementById('yAxisLabels');
-            const plotAreaContainer = document.getElementById('plotArea');
-            const xAxisContainer = document.getElementById('xAxis');
-
+        /* ---------------------------
+           Graph rendering
+           --------------------------- */
+        const displayGraph = (subject) => {
+            // Clear containers
             yAxisLabelsContainer.innerHTML = '';
             plotAreaContainer.innerHTML = '';
             xAxisContainer.innerHTML = '';
 
-            // Filter schools: score must be a valid number and 50 or higher
-            const sortedSchools = [...schoolData].filter(school => {
-                const score = parseFloat(school[subject]);
-                return !isNaN(score) && score >= 50; // Filter condition: score must be 50 or higher
-            }).sort((a, b) => {
-                return parseFloat(b[subject]) - parseFloat(a[subject]); // Sort by score descending
-            });
+            // Filter and sort schools (score must be >= 50 and numeric)
+            const sortedSchools = [...schoolData]
+                .filter(s => {
+                    const score = parseFloat(s[subject]);
+                    return !Number.isNaN(score) && score >= 50;
+                })
+                .sort((a, b) => parseFloat(b[subject]) - parseFloat(a[subject]));
 
             if (sortedSchools.length === 0) {
                 plotAreaContainer.innerHTML = `<p style="text-align: center; margin-top: 50px;">No data available for ${subject} :(</p>`;
                 return;
             }
 
-            const minScore = 50; // Fixed minimum score
-            const maxScore = 100; // Fixed maximum score
+            const minScore = 50;
+            const maxScore = 100;
             const scoreRange = maxScore - minScore;
 
-            // --- Find the highest score and its school (among the filtered/sorted schools) ---
-            let highestScore = -1;
-            let highestScoringSchoolName = '';
-            if (sortedSchools.length > 0) {
-                highestScore = parseFloat(sortedSchools[0][subject]);
-                highestScoringSchoolName = sortedSchools[0].Name;
-            }
-
-            const labelHeight = 30; // Height of each school name label/data point
-            plotAreaContainer.style.height = `${sortedSchools.length * labelHeight}px`; // Adjust plot area height
+            const labelHeight = 30;
+            plotAreaContainer.style.height = `${sortedSchools.length * labelHeight}px`;
             yAxisLabelsContainer.style.height = `${sortedSchools.length * labelHeight}px`;
 
-            let actualRank = 1; // The rank to be displayed, handles ties
-            let previousScore = -1; // To compare with current score for tie logic
+            let previousScore = -1;
+            let actualRank = 1;
 
             sortedSchools.forEach((school, index) => {
                 const score = parseFloat(school[subject]);
 
-                // Determine the actual rank based on score, handling ties
+                // rank/tie logic (keeps original semantics)
                 if (index === 0) {
-                    actualRank = 1; // First school always gets rank 1
+                    actualRank = 1;
                 } else if (score < previousScore) {
-                    actualRank = index + 1; // New rank for a different score
+                    actualRank = index + 1;
                 }
-                // If score === previousScore, actualRank remains the same (tied rank)
-                previousScore = score; // Update previous score for the next iteration
+                previousScore = score;
 
-                const topPosition = index * labelHeight + labelHeight / 2; // Center vertically within its slot
+                const topPosition = index * labelHeight + labelHeight / 2;
 
-                // Y-axis Label (School Name and Rank)
-                const schoolNameLabel = document.createElement('span');
-                schoolNameLabel.classList.add('school-name-label');
+                // y-axis label (school name + rank)
+                const schoolNameLabel = createEl('span', 'school-name-label');
                 schoolNameLabel.style.top = `${topPosition}px`;
-                schoolNameLabel.style.transform = `translateY(-50%)`;
+                schoolNameLabel.style.transform = 'translateY(-50%)';
 
-                // Add crown emoji for the top 10 schools in the filtered list (based on their position in the visible list)
+                // crown (original used index < 1 so we preserved that behavior)
                 if (index < 1) {
-                    const crown = document.createElement('span');
-                    crown.classList.add('crown-emoji');
+                    const crown = createEl('span', 'crown-emoji');
                     crown.textContent = '👑';
                     schoolNameLabel.appendChild(crown);
                 }
-                
-                schoolNameLabel.appendChild(document.createTextNode(school.Name)); // School name
 
-                // Add rank number/emoji to the right of the name
-                const rankSpan = document.createElement('span');
-                rankSpan.classList.add('school-rank');
+                schoolNameLabel.appendChild(document.createTextNode(school.Name));
+
+                const rankSpan = createEl('span', 'school-rank');
+
+                const isTied = (
+                    (index + 1 < sortedSchools.length && score === parseFloat(sortedSchools[index + 1][subject])) ||
+                    (index > 0 && score === parseFloat(sortedSchools[index - 1][subject]))
+                );
 
                 let rankDisplay = '';
-                // Check if this specific rank is part of a tied group
-                // A rank is considered tied if the current school's score is equal to the next school's score
-                // OR if it's equal to the previous school's score.
-                const isTied = (index + 1 < sortedSchools.length && score === parseFloat(sortedSchools[index + 1][subject])) ||
-                               (index > 0 && score === parseFloat(sortedSchools[index - 1][subject]));
+                if (actualRank === 1) rankDisplay = ' 🥇';
+                else if (actualRank === 2) rankDisplay = ' 🥈';
+                else if (actualRank === 3) rankDisplay = ' 🥉';
+                else rankDisplay = `  ${isTied ? '*' : ''}[ ${actualRank} ]`;
 
-                if (actualRank === 1) {
-                    rankDisplay = ` 🥇`; // Gold medal for 1st
-                } else if (actualRank === 2) {
-                    rankDisplay = ` 🥈`; // Silver medal for 2nd
-                } else if (actualRank === 3) {
-                    rankDisplay = ` 🥉`; // Bronze medal for 3rd
-                } else {
-                    rankDisplay = `  ${isTied ? '*' : ''}[ ${actualRank} ]`; // Numeric rank with '*' if tied
-                }
                 rankSpan.textContent = rankDisplay;
                 schoolNameLabel.appendChild(rankSpan);
-
                 yAxisLabelsContainer.appendChild(schoolNameLabel);
 
-                // Plot Area (Data Point)
-                const dataPoint = document.createElement('div');
-                dataPoint.classList.add('data-point');
-                dataPoint.style.top = `${topPosition}px`; // Align with school name label
+                // plot area: line + dot + score text
+                const dataPoint = createEl('div', 'data-point');
+                dataPoint.style.top = `${topPosition}px`;
                 plotAreaContainer.appendChild(dataPoint);
 
-                const line = document.createElement('div');
-                line.classList.add('line');
+                const line = createEl('div', 'line');
                 const lineWidth = ((score - minScore) / scoreRange) * 100;
                 line.style.width = `${lineWidth}%`;
                 dataPoint.appendChild(line);
 
-                const dot = document.createElement('div');
-                dot.classList.add('dot');
+                const dot = createEl('div', 'dot');
                 dot.style.left = `${lineWidth}%`;
-                dot.style.backgroundColor = '#3498db'; /* Use a blue color for the dot */
+                dot.style.backgroundColor = '#3498db'; // preserved color
                 dataPoint.appendChild(dot);
 
-                const scoreText = document.createElement('span');
-                scoreText.classList.add('score-text');
+                const scoreText = createEl('span', 'score-text');
                 scoreText.textContent = score;
-                scoreText.style.left = `calc(${lineWidth}% + 8px)`; // Position next to the dot
+                scoreText.style.left = `calc(${lineWidth}% + 8px)`;
                 dataPoint.appendChild(scoreText);
             });
 
-            // X-axis Labels
+            // x-axis labels (50..100 by 10s)
             for (let i = minScore; i <= maxScore; i += 10) {
-                const xLabel = document.createElement('span');
-                xLabel.classList.add('x-axis-label');
+                const xLabel = createEl('span', 'x-axis-label');
                 xLabel.textContent = i;
                 const leftPosition = ((i - minScore) / scoreRange) * 100;
                 xLabel.style.left = `${leftPosition}%`;
                 xAxisContainer.appendChild(xLabel);
             }
-        }
+        };
+
+        /* ---------------------------
+           Orientation overlay logic (IIFE using arrow)
+           --------------------------- */
+        (() => {
+            const OVERLAY_ID = 'orientationOverlay';
+            const DISMISS_KEY = 'dismissRotateOverlay';
+            const WIDTH_THRESHOLD = 769;
+
+            const isTooNarrow = () => {
+                const w = window.innerWidth || document.documentElement.clientWidth;
+                const h = window.innerHeight || document.documentElement.clientHeight;
+                return (w < WIDTH_THRESHOLD) || (w < h && w < 1000);
+            };
+
+            const showOverlay = () => {
+                const el = document.getElementById(OVERLAY_ID);
+                if (!el) return;
+                if (sessionStorage.getItem(DISMISS_KEY) === '1') return;
+                if (isTooNarrow()) {
+                    el.classList.add('show');
+                    el.setAttribute('aria-hidden', 'false');
+                } else {
+                    el.classList.remove('show');
+                    el.setAttribute('aria-hidden', 'true');
+                }
+            };
+
+            const dismiss = () => {
+                const el = document.getElementById(OVERLAY_ID);
+                if (!el) return;
+                sessionStorage.setItem(DISMISS_KEY, '1');
+                el.classList.remove('show');
+                el.setAttribute('aria-hidden', 'true');
+            };
+
+            window.addEventListener('DOMContentLoaded', () => {
+                const overlay = document.getElementById(OVERLAY_ID);
+                if (!overlay) return;
+                const closeBtn = overlay.querySelector('.overlay-close');
+                const continueBtn = document.getElementById('overlayContinueBtn');
+
+                if (closeBtn) closeBtn.addEventListener('click', dismiss);
+                if (continueBtn) continueBtn.addEventListener('click', dismiss);
+
+                // Close when clicking the dimmed background
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) dismiss();
+                });
+
+                showOverlay();
+            });
+
+            window.addEventListener('resize', () => {
+                if (sessionStorage.getItem(DISMISS_KEY) !== '1') showOverlay();
+            });
+        })();
+        // --- end overlay logic ---
     </script>
 </body>
 </html>
