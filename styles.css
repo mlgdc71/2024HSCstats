@@ -50,6 +50,14 @@ header p {
     margin-bottom: 10px;
     font-size: 1.1em;
     color: #555;
+    justify-content: center; /* Center the text + buttons row */
+}
+
+/* New: internal container for the Instagram buttons shown next to the text */
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 /* Social Links Container (for Twitter, LinkedIn) */
@@ -334,6 +342,14 @@ footer a:hover {
     height: 40px;  /* Adjusted: Smaller absolute size for Instagram button container */
     border-radius: 50%; /* Keep circular */
     background-color: #E1306C; /* Instagram's brand color */
+    font-size: 1em; /* Adjust font size if it contained text */
+}
+
+.social-button.github-button {
+    width: 40px;   /* Adjusted: Smaller absolute size for Instagram button container */
+    height: 40px;  /* Adjusted: Smaller absolute size for Instagram button container */
+    border-radius: 50%; /* Keep circular */
+    background-color: #000000; /* GitHub's brand color */
     font-size: 1em; /* Adjust font size if it contained text */
 }
 
