@@ -59,10 +59,43 @@ header p {
     justify-content: center;
 }
 
+.follow-instagram h3 {
+    margin: 0 12px 0 0;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
 .social-links {
     display: flex;
     align-items: center;
     gap: 12px;
+}
+
+/* Brand variations for social buttons */
+.social-button.github-button {
+    background-color: #000; /* GitHub black */
+}
+.social-button.bmc-button {
+    background: #ffdd00; /* BMC yellow */
+}
+
+/* Ensure consistent icon sizing inside the smaller 40x40 buttons */
+.social-button.instagram-button .social-icon,
+.social-button.github-button .social-icon,
+.social-button.linkedin-button .social-icon,
+.social-button.bmc-button .social-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Slight shadow and spacing like the screenshot */
+.social-links {
+    gap: 14px; /* a touch more space */
+}
+
+/* Keep the entire row centered */
+.follow-instagram {
+    justify-content: center;
 }
 
 /* Shared social links container (kept for other layout uses) */
@@ -306,7 +339,6 @@ footer a:hover {
     width: 60px;
     height: 60px;
     padding: 0;
-    background-color: #3498db;
     color: white;
     text-decoration: none;
     border-radius: 50%;
@@ -319,7 +351,6 @@ footer a:hover {
 }
 
 .social-button:hover {
-    background-color: #2980b9;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
@@ -340,6 +371,20 @@ footer a:hover {
     font-size: 1em;
 }
 
+.social-button.linkedin-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.social-button.bmc-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ffdd00; /* BMC yellow */
+}
+
+/* Instagram specific hover color */
 .social-button.instagram-button:hover {
     background-color: #c13584;
 }
